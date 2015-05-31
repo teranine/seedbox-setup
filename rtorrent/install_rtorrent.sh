@@ -1,5 +1,14 @@
 #!/bin/bash
 
+echo "Rtorrent installation script (xmlrpc, libtorrent 0.13.4, rtorrent 0.9.4)"
+echo "USER=$USER"
+echo "HOME=$HOME"
+echo "MEDIAHOME=$MEDIAHOME"
+echo "RTORDLDIR=$RTORDLDIR"
+echo "SERVERIP=$SERVERIP"
+
+exit
+
 sudo apt-get update
 
 # TODO: Consolidate these packages into the ones only needed to build rtorrent
