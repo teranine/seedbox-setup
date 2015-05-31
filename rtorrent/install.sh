@@ -17,7 +17,6 @@ sudo apt-get install -y git-core subversion build-essential automake libtool lib
 
 # Build and install xmlrpc from svn
 
-cd rtorrent
 # svn checkout http://svn.code.sf.net/p/xmlrpc-c/code/advanced xmlrpc-c
 tar -xzf xmlrpc.tar.gz
 cd xmlrpc-c
