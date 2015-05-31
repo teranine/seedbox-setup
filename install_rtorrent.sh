@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# USER="teranine"
-USERHOME="/home/$USER"
-
 sudo apt-get update
 
 # TODO: Consolidate these packages into the ones only needed to build rtorrent
