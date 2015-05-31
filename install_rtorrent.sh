@@ -1,6 +1,6 @@
 #!/bin/bash
 
-USER="teranine"
+# USER="teranine"
 USERHOME="/home/$USER"
 
 sudo apt-get update
@@ -43,9 +43,11 @@ sudo make install
 sudo ldconfig
 cd ..
 
-mkdir -p $USERHOME/{.session,watch,downloads}
+mkdir -p $HOME/{.session,watch,downloads,Media}
 
-cp ./rtorrent.rc $USERHOME/.rtorrent.rc
+cp ./rtorrent.rc $HOME/.rtorrent.rc
 
-sudo chown -R $USER:$USER $USERHOME
-# chmod 777 $USERHOME/{.session,watch,downloads,.rtorrent.rc}
+sudo chown -R $USER:$USER $HOME
+chmod 755 $HOME/{.session,watch,downloads,.rtorrent.rc}
+
+
