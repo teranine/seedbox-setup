@@ -5,9 +5,9 @@ echo "USER=$USER"
 echo "HOME=$HOME"
 echo "MEDIAHOME=$MEDIAHOME"
 echo "RTORDLDIR=$RTORDLDIR"
+echo "WATCHDIR=$WATCHDIR"
+echo "SESSIONDIR=$SESSIONDIR"
 echo "SERVERIP=$SERVERIP"
-
-exit
 
 sudo apt-get update
 
@@ -48,11 +48,16 @@ sudo make install
 sudo ldconfig
 cd ..
 
-mkdir -p $HOME/{.session,watch,downloads,Media}
+# Create rtorrent directories and set permissions/ownership
+mkdir -p $SESSIONDIR $WATCHDIR $RTORDLDIR $MEDIAHOME
+sudo chown -R $USER:$USER $SESSIONDIR $WATCHDIR $RTORDLDIR $MEDIAHOME ./rtorrent.rc
+chmod 755 $SESSIONDIR $WATCHDIR $RTORDLDIR $MEDIAHOME 
+
+# substitute environment variables with their values in the rtorrent RC file
+perl -i -pe "s|<DOWNLOAD DIR>|$RTORDLDIR|" ./rtorrent.rc
+perl -i -pe "s|<SESSION DIR>|$SESSIONDIR|" ./rtorrent.rc
+perl -i -pe "s|<WATCH DIR>|$WATCHDIR|" ./rtorrent.rc
 
 cp ./rtorrent.rc $HOME/.rtorrent.rc
-
-sudo chown -R $USER:$USER $HOME
-chmod 755 $HOME/{.session,watch,downloads,.rtorrent.rc}
 
 
