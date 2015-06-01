@@ -60,4 +60,5 @@ perl -i -pe "s|<WATCH DIR>|$WATCHDIR|" ./rtorrent.rc
 
 cp ./rtorrent.rc $HOME/.rtorrent.rc
 
-
+# Substitute USER environment variable in rtorrent.initd
+sudo perl -pi -e "s/<USER NAME>/$USER/g" ./rtorrent.initd
