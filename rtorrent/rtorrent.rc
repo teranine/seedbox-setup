@@ -14,18 +14,21 @@ download_rate = 0
 upload_rate = 4
 
 # Default directory to save the downloaded torrents.
-directory = /home/teranine/downloads
+# Replace "DOWNLOAD DIR" with actual location 
+directory = <DOWNLOAD DIR>
 
 # Default session directory. Make sure you don't run multiple instance
 # of rtorrent using the same session directory. Perhaps using a
 # relative path?
-session = /home/teranine/.session
+# Replace "SESSION DIR" with actual location
+session = <SESSION DIR>
 
 peer_exchange = yes
 
 # Watch a directory for new torrents, and stop those that have been
 # deleted.
-schedule = watch_directory,5,5,load_start="/home/teranine/watch/*.torrent"
+# Replace "WATCH DIR" with actual location
+schedule = watch_directory,5,5,load_start="<WATCH DIR>/*.torrent"
 schedule = untied_directory,5,5,stop_untied=
 
 # Close torrents when diskspace is low.
