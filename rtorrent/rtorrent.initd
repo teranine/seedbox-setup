@@ -28,7 +28,7 @@
 
 ## Username to run rtorrent under, make sure you have a .rtorrent.rc in the
 ## home directory of this user!
-USER="teranine"
+USER="<USER NAME>"
 
 ## Absolute path to the rtorrent binary.
 ## run "which rtorrent"
