@@ -1,19 +1,22 @@
 #!/bin/bash
 
-echo "Rtorrent installation script (xmlrpc, libtorrent 0.13.4, rtorrent 0.9.4)"
-echo "USER=$USER"
-echo "HOME=$HOME"
-echo "MEDIAHOME=$MEDIAHOME"
-echo "RTORDLDIR=$RTORDLDIR"
-echo "WATCHDIR=$WATCHDIR"
-echo "SESSIONDIR=$SESSIONDIR"
-echo "SERVERIP=$SERVERIP"
+abort()
+{
+    echo >&2 'Installation aborted!'
+    echo "An error occurred. Exiting..." >&2
+    exit 1
+}
 
-sudo apt-get update
+trap 'abort' 0
+
+set -e
+
+echo "Rtorrent installation script (xmlrpc, libtorrent 0.13.4, rtorrent 0.9.4)"
+echo -e "USER=$USER\nHOME=$HOME\nMEDIAHOME=$MEDIAHOME\nRTORDLDIR=$RTORDLDIR\nWATCHDIR=$WATCHDIR\nSESSIONDIR=$SESSIONDIR\n\n"
 
 # TODO: Consolidate these packages into the ones only needed to build rtorrent
 
-sudo apt-get install -y git-core subversion build-essential automake libtool libcppunit-dev libcurl4-openssl-dev libsigc++-2.0-dev libncurses5-dev zip rar unrar apache2 apache2-utils php5 php5-curl php5-geoip python-cheetah mediainfo libav-tools
+sudo apt-get install -y --force-yes git-core subversion build-essential automake libtool libcppunit-dev libcurl4-openssl-dev libsigc++-2.0-dev libncurses5-dev zip rar unrar python-cheetah mediainfo libav-tools
 
 # Build and install xmlrpc from svn
 
@@ -48,11 +51,6 @@ sudo make install
 sudo ldconfig
 cd ..
 
-# Create rtorrent directories and set permissions/ownership
-mkdir -p $SESSIONDIR $WATCHDIR $RTORDLDIR $MEDIAHOME
-sudo chown -R $USER:$USER $SESSIONDIR $WATCHDIR $RTORDLDIR $MEDIAHOME ./rtorrent.rc
-chmod 755 $SESSIONDIR $WATCHDIR $RTORDLDIR $MEDIAHOME 
-
 # substitute environment variables with their values in the rtorrent RC file
 perl -i -pe "s|<DOWNLOAD DIR>|$RTORDLDIR|" ./rtorrent.rc
 perl -i -pe "s|<SESSION DIR>|$SESSIONDIR|" ./rtorrent.rc
@@ -62,3 +60,12 @@ cp ./rtorrent.rc $HOME/.rtorrent.rc
 
 # Substitute USER environment variable in rtorrent.initd
 perl -pi -e "s/<USER NAME>/$USER/g" ./rtorrent.initd
+
+# Create rtorrent directories and set permissions/ownership
+mkdir -p $SESSIONDIR $WATCHDIR $RTORDLDIR $MEDIAHOME
+sudo chown -R $USER:$USER $SESSIONDIR $WATCHDIR $RTORDLDIR $MEDIAHOME ./rtorrent.rc
+chmod 755 $SESSIONDIR $WATCHDIR $RTORDLDIR $MEDIAHOME
+
+trap : 0
+
+echo >&2 'Installation complete'
