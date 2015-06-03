@@ -63,7 +63,7 @@ perl -pi -e "s/<USER NAME>/$USER/g" ./rtorrent.initd
 
 # Create rtorrent directories and set permissions/ownership
 mkdir -p $SESSIONDIR $WATCHDIR $RTORDLDIR $MEDIAHOME
-sudo chown -R $USER:$USER $SESSIONDIR $WATCHDIR $RTORDLDIR $MEDIAHOME ./rtorrent.rc
+sudo chown -R $USER:$USER $SESSIONDIR $WATCHDIR $RTORDLDIR $MEDIAHOME ~/.rtorrent.rc
 chmod 755 $SESSIONDIR $WATCHDIR $RTORDLDIR $MEDIAHOME
 
 trap : 0
